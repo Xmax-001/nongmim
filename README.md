@@ -16,12 +16,12 @@
 
 ```mermaid
 graph LR
-    %% Styles
-    classDef user fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef frontend fill:#aff,stroke:#333,stroke-width:2px;
-    classDef backend fill:#ffa,stroke:#333,stroke-width:2px;
-    classDef data fill:#dfd,stroke:#333,stroke-width:2px;
-    classDef external fill:#eee,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5;
+    %% Styles - High Contrast Theme
+    classDef user fill:#1E88E5,stroke:#0D47A1,stroke-width:2px,color:#FFFFFF;
+    classDef frontend fill:#43A047,stroke:#1B5E20,stroke-width:2px,color:#FFFFFF;
+    classDef backend fill:#FB8C00,stroke:#E65100,stroke-width:2px,color:#FFFFFF;
+    classDef data fill:#8E24AA,stroke:#4A148C,stroke-width:2px,color:#FFFFFF;
+    classDef external fill:#546E7A,stroke:#263238,stroke-width:2px,stroke-dasharray: 5 5,color:#FFFFFF;
 
     %% Users
     subgraph Users ["👥 Users (ผู้ใช้งาน)"]
