@@ -15,49 +15,67 @@
 ## 🏗️ แผนภาพการทำงานของระบบ (System Architecture)
 
 ```mermaid
-graph TD
+graph LR
+    %% Styles
+    classDef user fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef frontend fill:#aff,stroke:#333,stroke-width:2px;
+    classDef backend fill:#ffa,stroke:#333,stroke-width:2px;
+    classDef data fill:#dfd,stroke:#333,stroke-width:2px;
+    classDef external fill:#eee,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5;
+
     %% Users
-    User["👶 ผู้ใช้งานทั่วไป / ผู้ปกครอง"]
-    Admin["👩‍🏫 ผู้ดูแลระบบ (Admin)"]
+    subgraph Users ["👥 Users (ผู้ใช้งาน)"]
+        direction TB
+        User["👶 ผู้ใช้งานทั่วไป"]:::user
+        Admin["👩‍🏫 ผู้ดูแลระบบ"]:::user
+    end
 
     %% Frontend
-    subgraph Frontend ["🌐 Frontend (React + Vite)"]
-        Web["เว็บไซต์ประชาสัมพันธ์"]
-        AdminPanel["ระบบจัดการหลังบ้าน"]
+    subgraph FrontendSystem ["🌐 Frontend (React + Vite)"]
+        direction TB
+        Web["เว็บไซต์ประชาสัมพันธ์"]:::frontend
+        AdminPanel["ระบบหลังบ้าน"]:::frontend
     end
 
     %% Backend
     subgraph BackendSystem ["⚙️ Backend (Node.js on Render)"]
-        API["API Server (Express)"]
-        Scheduler["Auto News Scheduler"]
+        direction TB
+        API["API Server"]:::backend
+        Scheduler["Job Scheduler"]:::backend
     end
 
-    %% External & Data
+    %% Data & Services
     subgraph CloudServices ["☁️ Cloud Services"]
-        DB[("Firebase Firestore\nDatabase")]
-        Gemini["🧠 Google Gemini AI"]
+        direction TB
+        DB[("Firebase Firestore")]:::data
+        Gemini["🧠 Gemini AI"]:::data
     end
 
-    subgraph External ["โลกภายนอก"]
-        RSS["📰 Google News RSS"]
-        CronJob["⏰ External Cron (09:00 น.)"]
+    %% External
+    subgraph External ["🌍 External Sources"]
+        direction TB
+        RSS["📰 News RSS"]:::external
+        CronJob["⏰ Cron Job"]:::external
     end
 
     %% Connections
-    User -->|เข้าชมเว็บไซต์| Web
-    Admin -->|Login / จัดการข้อมูล| AdminPanel
+    User -->|เข้าชม| Web
+    Admin -->|Login| AdminPanel
+
+    Web -->|API Req| API
+    AdminPanel -->|API Req| API
+
+    API <-->|Read/Write| DB
+    API <-->|Gen Content| Gemini
+
+    %% Auto News Flow
+    CronJob -.->|Trigger| API
+    Scheduler -->|Fetch| RSS
+    Scheduler -->|Summarize| Gemini
+    Scheduler -->|Save| DB
     
-    Web -->|Request API| API
-    AdminPanel -->|Request API| API
-    
-    API -->|Read/Write Data| DB
-    API -->|Generate Content / Chat| Gemini
-    
-    %% Automation Flow
-    CronJob -->|Trigger via API| API
-    Scheduler -->|1. Fetch News| RSS
-    Scheduler -->|2. Summarize & Rewrite| Gemini
-    Scheduler -->|3. Save Auto Post| DB
+    %% Internal
+    API --- Scheduler
 ```
 
 ## 🚀 วิธีการเริ่มโปรเจกต์ (How to Start)
