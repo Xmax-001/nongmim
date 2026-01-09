@@ -18,8 +18,8 @@
 ก่อนเริ่มขั้นตอน ต้องมั่นใจว่ามีสิ่งเหล่านี้ครบถ้วน:
 
 ### 1.1 โปรแกรมที่ต้องมีในเครื่อง
-*   **VS Code:** ใช้แก้ไขโค้ด (มีอยู่แล้ว)
-*   **Node.js:** (มีอยู่แล้ว) ใช้รันคำสั่ง npm
+*   **VS Code:** ใช้แก้ไขโค้ด 
+*   **Node.js:**  ใช้รันคำสั่ง npm
 *   **Git:** ใช้สำหรับส่งโค้ดขึ้น GitHub
 
 ### 1.2 บัญชีที่ต้องสมัคร (ฟรีทั้งหมด)
@@ -193,3 +193,4 @@ firebase init hosting
 **ปัญหา 4: CORS Error (Access to fetch ... has been blocked)**
 *   **สาเหตุ:** Backend ไม่อนุญาตให้ Frontend URL นี้เข้ามาดึงข้อมูล
 *   **วิธีแก้:** กลับไปที่ไฟล์ `Backend/server.js` ตรง `allowedOrigins` ให้เพิ่ม URL ของ Firebase (เช่น `https://nongmax-web.web.app`) เข้าไป แล้ว Push โค้ดขึ้น GitHub เพื่อให้ Render อัปเดตใหม่
+
